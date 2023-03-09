@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  react-app:
+    image: react-app
+    container_name: nutriscore-react-app
+    stdin_open: true
+    ports: 
+      - "3000:3000"
+    networks:
+      - nutriscore-app-network
+  api-server:
+    image: api-server
+    container_name: api-express-server
+    ports:
+      - "5000:5000"
+    networks:
+      - nutriscore-app-network
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    container_name: mongo-database
+    ports:
+      - "27017:27017"
+    networks:
+      - nutriscore-app-network
+    volumes:
+      - mongo-data:/data/db
+networks:
+  nutriscore-app-network:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local
+
