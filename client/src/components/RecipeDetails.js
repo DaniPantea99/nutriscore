@@ -52,35 +52,54 @@ function RecipeDetails({ recipe }) {
           <ul className="ml-6 list-disc">
             <li>
               {t('editRecipe.details.calories')}:&nbsp;
-              {recipe.nutriments.calories ? format2Decimals(recipe?.nutriments?.calories) : 0} kcal /&nbsp;
-              {recipe.nutriments.calories ? format2Decimals(recipe?.nutriments?.calories * 4.184) : 0} kJ
+              {recipe.nutriments.calories
+                ? format2Decimals(recipe?.nutriments?.calories)
+                : 0}{' '}
+              kcal /&nbsp;
+              {recipe.nutriments.calories
+                ? format2Decimals(recipe?.nutriments?.calories * 4.184)
+                : 0}{' '}
+              kJ
             </li>
             <li>
               {t('editRecipe.details.fat')}:&nbsp;
-              {recipe.nutriments.fat ? format2Decimals(recipe?.nutriments?.fat) : 0}
+              {recipe.nutriments.fat
+                ? format2Decimals(recipe?.nutriments?.fat)
+                : 0}
               <ul className="ml-6 list-disc">
                 <li>
                   {t('editRecipe.details.saturatedFat')}:&nbsp;
-                  {recipe.nutriments.saturated_fat ? format2Decimals(recipe?.nutriments?.saturated_fat) : 0}
+                  {recipe.nutriments.saturated_fat
+                    ? format2Decimals(recipe?.nutriments?.saturated_fat)
+                    : 0}
                 </li>
               </ul>
             </li>
             <li>
               {t('editRecipe.details.carbohydrates')}:{' '}
-              {recipe.nutriments.carbohydrates ? format2Decimals(recipe?.nutriments?.carbohydrates) : 0}
+              {recipe.nutriments.carbohydrates
+                ? format2Decimals(recipe?.nutriments?.carbohydrates)
+                : 0}
               <ul className="ml-6 list-disc">
                 <li>
                   {t('editRecipe.details.sugar')}:{' '}
-                  {recipe.nutriments.sugars ? format2Decimals(recipe?.nutriments?.sugars) : 0}
+                  {recipe.nutriments.sugars
+                    ? format2Decimals(recipe?.nutriments?.sugars)
+                    : 0}
                 </li>
               </ul>
             </li>
             <li>
               {t('editRecipe.details.proteins')}:{' '}
-              {recipe.nutriments.proteins ? format2Decimals(recipe?.nutriments?.proteins) : 0}
+              {recipe.nutriments.proteins
+                ? format2Decimals(recipe?.nutriments?.proteins)
+                : 0}
             </li>
             <li>
-              {t('editRecipe.details.salt')}: {recipe.nutriments.salt ? format2Decimals(recipe?.nutriments?.salt) :  0}
+              {t('editRecipe.details.salt')}:{' '}
+              {recipe.nutriments.salt
+                ? format2Decimals(recipe?.nutriments?.salt)
+                : 0}
             </li>
           </ul>
         ) : (
@@ -115,7 +134,7 @@ function RecipeDetails({ recipe }) {
             <Disclosure.Button
               className={`${
                 open ? 'rounded-t-xl' : 'rounded-xl'
-              } flex items-center w-full bg-blue-400 h-11 hover:bg-opacity-70 outline-none`}
+              } flex items-center w-full bg-blue-400 h-11 hover:brightness-110 active:brightness-95 outline-none`}
             >
               <ChevronUpIcon
                 className={`${

@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
+// import { tempRecipes } from './db'
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -87,6 +88,7 @@ function GlobalSearchFilter1({
 
 export default function RecipesTable({ onRemoveRecipe, onSelect }) {
   const { filteredRecipes } = useSelector((state) => state.recipes);
+  // const filteredRecipes = tempRecipes
   const { t } = useTranslation();
 
   const generateData = ({ filteredRecipes }) =>
@@ -146,15 +148,15 @@ export default function RecipesTable({ onRemoveRecipe, onSelect }) {
 
       Cell: ({ cell }) => {
         return (
-          <div className="z-0 flex items-center justify-between gap-2">
+          <div className="z-0 flex items-center gap-1">
             <button
-              className="px-4 py-2 text-xs text-white bg-orange-500 rounded-lg outline-none hover:opacity-70 active:opacity-100"
+              className="px-4 py-2 text-xs text-white bg-orange-500 rounded-lg outline-none hover:brightness-125 active:brightness-95"
               onClick={() => viewMoreHandler(cell.row.original)}
             >
               {t('recipesOption.openBtn')}
             </button>
             <button
-              className="px-4 py-2 text-xs text-white bg-gray-400 rounded-lg outline-none hover:bg-red-400 active:bg-red-500"
+              className="px-4 py-2 mr-4 text-xs bg-blue-300 rounded-lg outline-none hover:bg-red-300 active:bg-red-400 hover:text-white active:text-white"
               onClick={() => onRemoveRecipe(cell.row.original)}
             >
               {t('recipesOption.removeBtn')}
@@ -174,7 +176,7 @@ export default function RecipesTable({ onRemoveRecipe, onSelect }) {
     prepareRow,
   }) {
     return (
-      <div className="overflow-auto">
+      <div className="overflow-auto max-h-[400px]">
         <table
           {...getTableProps()}
           className="w-full border-separate border-spacing-y-2"
@@ -188,7 +190,7 @@ export default function RecipesTable({ onRemoveRecipe, onSelect }) {
                 {headerGroup.headers.map((column) => (
                   <th
                     {...column.getHeaderProps(column.getSortByToggleProps())}
-                    className="px-4 py-2 text-xs uppercase bg-blue-200 cursor-pointer first:rounded-tl-xl last:rounded-tr-xl dark:bg-blue-400"
+                    className="py-2 pl-4 text-xs text-white uppercase bg-blue-300 cursor-pointer first:rounded-tl-xl last:rounded-tr-xl dark:bg-blue-600 whitespace-nowrap"
                     style={{ width: column.width }}
                   >
                     <div className="flex items-center gap-2">
@@ -196,19 +198,19 @@ export default function RecipesTable({ onRemoveRecipe, onSelect }) {
                         {column.render('Header')}
                       </div>
                       {!column.disableSortBy && (
-                        <div className="flex flex-col">
+                        <div className="flex flex-col gap-1">
                           <FaSortUp
                             className={`text-sm translate-y-1/2 ${
                               column.isSorted && !column.isSortedDesc
                                 ? 'text-red-300'
-                                : 'text-white'
+                                : 'text-gray-200'
                             }`}
                           />
                           <FaSortDown
                             className={`text-sm -translate-y-1/2 ${
                               column.isSortedDesc
                                 ? 'text-red-300'
-                                : 'text-white'
+                                : 'text-gray-200'
                             }`}
                           />
                         </div>
@@ -232,7 +234,7 @@ export default function RecipesTable({ onRemoveRecipe, onSelect }) {
                     return (
                       <td
                         {...cell.getCellProps()}
-                        className="px-4 py-2 text-sm font-medium first-letter:uppercase first:rounded-l-xl last:rounded-r-xl"
+                        className="py-2 pl-4 text-sm font-medium first-letter:uppercase first:rounded-l-xl last:rounded-r-xl whitespace-nowrap"
                       >
                         {cell.render('Cell')}
                       </td>
@@ -284,10 +286,10 @@ export default function RecipesTable({ onRemoveRecipe, onSelect }) {
 
         <Menu as="div" className="relative inline-block text-left">
           <div>
-            <Menu.Button className="inline-flex items-center w-full px-4 py-2 text-sm font-bold bg-blue-200 items rounded-xl hover:bg-opacity-75 dark:bg-blue-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 h-11">
-              {t('filterColumns.title')}
+            <Menu.Button className="relative inline-flex items-center w-full px-4 py-2 text-sm font-bold bg-blue-200 items rounded-xl hover:bg-opacity-75 dark:bg-blue-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 h-11">
+              <p className="mr-4">{t('filterColumns.title')}</p>
               <ChevronDownIcon
-                className="w-5 h-5 ml-2 -mr-1 text-blue-700"
+                className="absolute w-5 h-5 text-blue-700 right-2 top-3"
                 aria-hidden="true"
               />
             </Menu.Button>
@@ -330,7 +332,7 @@ export default function RecipesTable({ onRemoveRecipe, onSelect }) {
         </Menu>
       </div>
 
-      <div className="overflow-hidden">
+      <div>
         <TableComponent
           getTableProps={getTableProps}
           headerGroups={headerGroups}

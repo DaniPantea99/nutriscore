@@ -271,14 +271,14 @@ function CreateRecipe({ onCloseAndDiscard, recipe }) {
   return (
     <div className="flex flex-col h-full p-4 text-gray-900 bg-gray-100 shadow-2xl md:px-7">
       {/* <NavLink to={'/pdf'}>Print</NavLink> */}
-      <button onClick={() => console.log(state.recipe)}>TEST recipe</button>
+      {/* <button onClick={() => console.log(state.recipe)}>TEST recipe</button> */}
       <div className="flex justify-between gap-3">
         <h2 className="text-base font-semibold">
           {t('editRecipe.description')}
         </h2>
         <BsFillXCircleFill
           onClick={onCloseAndDiscard}
-          className="text-4xl text-blue-900 cursor-pointer blue-900 hover:text-opacity-70 active:text-opacity-100"
+          className="text-4xl text-blue-900 cursor-pointer blue-900 hover:brightness-150 active:brightness-90"
         />
       </div>
 
@@ -331,14 +331,14 @@ function CreateRecipe({ onCloseAndDiscard, recipe }) {
         <div className="flex flex-col gap-2 mt-4">
           <button
             type="submit"
-            className="px-4 py-2 font-medium tracking-widest text-white bg-orange-500 rounded-2xl hover:bg-opacity-70 active:bg-opacity-100"
+            className="px-4 py-2 font-medium tracking-widest text-white bg-orange-500 rounded-2xl hover:brightness-110 active:brightness-95"
           >
             {recipe._id
               ? t('editRecipe.updateButton')
               : t('createRecipe.saveBtn')}
           </button>
           <button
-            className="px-4 py-2 font-medium tracking-widest bg-blue-300 rounded-2xl hover:bg-opacity-70 active:bg-opacity-100"
+            className="px-4 py-2 font-medium tracking-widest bg-blue-300 rounded-2xl hover:brightness-110 active:brightness-95"
             onClick={onCloseAndDiscard}
           >
             {recipe._id

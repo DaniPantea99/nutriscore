@@ -69,7 +69,7 @@ function Ingredient({ item, onChange, onRemove }) {
             <Disclosure.Button
               className={`${
                 open ? 'rounded-t-xl' : 'rounded-xl'
-              } flex items-center w-full bg-blue-300 h-11 focus:outline-none`}
+              } flex items-center w-full bg-blue-300 h-11 focus:outline-none hover:brightness-110 active:brightness-95`}
             >
               <ChevronUpIcon
                 className={`${

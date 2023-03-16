@@ -32,17 +32,21 @@ function Dashboard() {
   };
 
   return (
-    <div className="flex flex-col w-full h-full gap-4 p-8">
-      <div className="flex items-center justify-between">
+    <div className="flex flex-col w-full gap-4 p-4 sm:p-8">
+      <div className="flex flex-col gap-4 sm:justify-between sm:items-center sm:flex-row">
         <div className="flex items-center gap-4">
-          <img width="100px" src={`./images/logo.png`} alt="restaurant-logo" />
-          <h1 className="tracking-wide uppercase cursor-default">
+          <img
+            className="w-[80px] sm:w-[100px]"
+            src={`./images/logo.png`}
+            alt="restaurant-logo"
+          />
+          <h1 className="text-2xl tracking-wide uppercase cursor-default sm:text-3xl">
             {t('recipeList.title')}
           </h1>
         </div>
         <img
           onClick={() => setShowModal(true)}
-          className="w-[110px] mr-3 cursor-pointer hover:scale-105 transition-all duration-200"
+          className="w-[110px] cursor-pointer hover:scale-105 transition-all duration-200 place-self-end sm:self-auto"
           src={`./images/nutriscore/nutriscore.svg`}
           alt="nutriscore logo"
         />
@@ -51,13 +55,13 @@ function Dashboard() {
         )}
       </div>
 
-      <div className="flex flex-col p-8 bg-white rounded-xl min-h-[500px] w-[500px] sm:w-full dark:text-gray-100 dark:bg-slate-800">
-        <div className="flex flex-col justify-between mb-6 sm:flex-row">
+      <div className="flex flex-col p-4 bg-white sm:p-6 rounded-xl dark:text-gray-100 dark:bg-slate-800">
+        <div className="flex flex-col justify-between gap-4 mb-6 sm:flex-row">
           <div>
             <h2 className="tracking-wide">{t('recipeList.subtitle')}</h2>
           </div>
           <button
-            className="px-6 py-3 font-semibold text-white bg-orange-500 rounded-2xl hover:bg-opacity-70 active:bg-opacity-100"
+            className="px-6 py-3 font-semibold text-white bg-orange-500 rounded-2xl hover:brightness-110 active:brightness-95"
             onClick={() => setShowRecipePanel(true)}
           >
             {t('recipeList.createButton')}
@@ -81,7 +85,10 @@ function Dashboard() {
         leaveTo="opacity-0"
       >
         <div className="z-50">
-          <div className="fixed inset-0 bg-black bg-opacity-25" onClick={CloseAndDiscard}/>
+          <div
+            className="fixed inset-0 bg-black bg-opacity-25"
+            onClick={CloseAndDiscard}
+          />
 
           <div
             className={`w-full lg:w-[500px]

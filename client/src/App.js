@@ -17,7 +17,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="flex h-full overflow-hidden">
+    <div className="h-full">
       <Navbar>
         <Routes>
           <Route path="/" exact element={<Dashboard />} />
