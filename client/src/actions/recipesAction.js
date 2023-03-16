@@ -29,7 +29,6 @@ const createRecipe = (recipe) => async (dispatch) => {
 
 const updateRecipe = (recipe) => async (dispatch) => {
   const updatedRecipe = await axios.put(`${RecipesURL}/${recipe._id}`, recipe)
-  console.log(recipe)
   dispatch({
     type: 'UPDATE_RECIPE',
     payload: {

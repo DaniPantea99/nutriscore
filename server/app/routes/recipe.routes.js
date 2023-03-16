@@ -9,9 +9,6 @@ module.exports = (app) => {
   //Retrieve all Recipes
   router.get('/', recipes.findAll);
 
-  //Retrieve all Nutriscore A Recipes
-  router.get('/nutriscore-A', recipes.findAllNutriscoreA);
-
   //Retrieve a single Recipe with id
   router.get('/:id', recipes.findOne);
 

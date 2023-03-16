@@ -19,6 +19,7 @@ services:
       - mongo
   mongo:
     image: mongo
+    restart: always
     container_name: mongo-database
     ports:
       - "27017:27017"
@@ -32,4 +33,3 @@ networks:
 volumes:
   mongo-data:
     driver: local
-

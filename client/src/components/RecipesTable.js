@@ -4,10 +4,25 @@ import {
   useSortBy,
   usePagination,
 } from 'react-table';
-import { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, Fragment } from 'react';
 import { FaSearch, FaSortUp, FaSortDown } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { Menu, Transition } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
+
+const IndeterminateCheckbox = React.forwardRef(
+  ({ indeterminate, ...rest }, ref) => {
+    const defaultRef = React.useRef();
+    const resolvedRef = ref || defaultRef;
+
+    React.useEffect(() => {
+      resolvedRef.current.indeterminate = indeterminate;
+    }, [resolvedRef, indeterminate]);
+
+    return <input type="checkbox" ref={resolvedRef} {...rest} />;
+  }
+);
 
 function InputGroup7({
   label,
@@ -74,8 +89,7 @@ export default function RecipesTable({ onRemoveRecipe, onSelect }) {
   const { filteredRecipes } = useSelector((state) => state.recipes);
   const { t } = useTranslation();
 
-  
-  const generateData = ({ filteredRecipes }) =>  
+  const generateData = ({ filteredRecipes }) =>
     filteredRecipes?.map((item) => ({
       _id: item._id,
       name: item.name,
@@ -84,7 +98,7 @@ export default function RecipesTable({ onRemoveRecipe, onSelect }) {
       nutriscore: item.nutriscore,
       date: item.date,
     }));
-  
+
   const viewMoreHandler = useCallback(
     (recipe) => {
       const selected = filteredRecipes.find((el) => el._id === recipe._id);
@@ -247,6 +261,8 @@ export default function RecipesTable({ onRemoveRecipe, onSelect }) {
     state,
     setGlobalFilter,
     rows,
+    allColumns,
+    getToggleHideAllColumnsProps,
   } = useTable(
     {
       columns,
@@ -258,21 +274,71 @@ export default function RecipesTable({ onRemoveRecipe, onSelect }) {
   );
 
   return (
-    <div className="flex flex-col gap-4 overflow-hidden sm:py-0">
+    <div className="flex flex-col gap-4 sm:py-0">
       <div className="flex flex-col justify-between gap-2 sm:flex-row">
         <GlobalSearchFilter1
           className="sm:w-64 dark:bg-blue-400"
           globalFilter={state.globalFilter}
           setGlobalFilter={setGlobalFilter}
         />
+
+        <Menu as="div" className="relative inline-block text-left">
+          <div>
+            <Menu.Button className="inline-flex items-center w-full px-4 py-2 text-sm font-bold bg-blue-200 items rounded-xl hover:bg-opacity-75 dark:bg-blue-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 h-11">
+              {t('filterColumns.title')}
+              <ChevronDownIcon
+                className="w-5 h-5 ml-2 -mr-1 text-blue-700"
+                aria-hidden="true"
+              />
+            </Menu.Button>
+          </div>
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-100"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95"
+          >
+            <Menu.Items className="absolute right-0 z-30 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 shadow-lg rounded-xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div className="px-2 py-2">
+                <div className="w-full">
+                  <label className="inline-block w-full px-2 py-1 cursor-pointer hover:bg-blue-200 hover:rounded-md">
+                    <IndeterminateCheckbox
+                      {...getToggleHideAllColumnsProps()}
+                    />{' '}
+                    {t('filterColumns.allFilters')}
+                  </label>
+                </div>
+                {allColumns.map((column) => (
+                  <Menu.Item className="w-full" key={column.id}>
+                    <div className="w-full">
+                      <label className="inline-block w-full px-2 py-1 cursor-pointer hover:bg-blue-200 hover:rounded-md">
+                        <input
+                          type="checkbox"
+                          {...column.getToggleHiddenProps()}
+                        />{' '}
+                        {column.Header}
+                      </label>
+                    </div>
+                  </Menu.Item>
+                ))}
+              </div>
+            </Menu.Items>
+          </Transition>
+        </Menu>
       </div>
-      <TableComponent
-        getTableProps={getTableProps}
-        headerGroups={headerGroups}
-        getTableBodyProps={getTableBodyProps}
-        rows={rows}
-        prepareRow={prepareRow}
-      />
+
+      <div className="overflow-hidden">
+        <TableComponent
+          getTableProps={getTableProps}
+          headerGroups={headerGroups}
+          getTableBodyProps={getTableBodyProps}
+          rows={rows}
+          prepareRow={prepareRow}
+        />
+      </div>
     </div>
   );
 }

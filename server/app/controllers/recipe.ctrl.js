@@ -76,13 +76,13 @@ exports.update = (req, res) => {
 
   const id = req.params.id;
 
-  Recipe.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+  Recipe.findByIdAndUpdate(id, req.body, { new: true })
     .then((data) => {
       if (!data) {
         res.status(404).send({
           message: `Cannot update Recipe with id=${id}. Maybe Recipe was not found!`,
         });
-      } else res.send({ message: 'Recipe was updated successfully.' });
+      } else res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
@@ -124,18 +124,6 @@ exports.deleteAll = (req, res) => {
       res.status(500).send({
         message:
           err.message || 'Some error occurred while removing all recipes.',
-      });
-    });
-};
-
-exports.findAllNutriscoreA = (req, res) => {
-  Recipe.find({ nutriscore: 'A' })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || 'Some error occured while retrieving recipes.',
       });
     });
 };

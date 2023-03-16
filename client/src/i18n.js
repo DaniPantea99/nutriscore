@@ -37,6 +37,10 @@ i18n
             createButton: 'Create New Recipe',
             searchInput: 'Search',
           },
+          filterColumns: {
+            title: 'Filter Columns',
+            allFilters: 'Toggle all',
+          },
           recipesOption: {
             openBtn: 'View',
             removeBtn: 'Remove',
@@ -96,7 +100,7 @@ i18n
             inputPlaceholder: 'quantity...',
             brand: 'Brand',
             source: 'Source',
-          }
+          },
         },
       },
       ro: {
@@ -126,6 +130,10 @@ i18n
             },
             createButton: 'Creare Rețetă Nouă',
             searchInput: 'Căutare',
+          },
+          filterColumns: {
+            title: 'Filtrează Coloanele',
+            allFilters: 'Comută toate',
           },
           recipesOption: {
             openBtn: 'Deschide',
@@ -188,7 +196,7 @@ i18n
             inputPlaceholder: 'cantitatea...',
             brand: 'Marcă',
             source: 'Sursa',
-          }
+          },
         },
       },
     },

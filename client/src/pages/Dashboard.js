@@ -13,33 +13,29 @@ function Dashboard() {
   const { t } = useTranslation();
   const [showRecipePanel, setShowRecipePanel] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [selectedRecipe, setSelectedRecipe] = useState([])
-  
+  const [selectedRecipe, setSelectedRecipe] = useState([]);
+
   const handleRemoveRecipe = (recipe) => {
-      const selected = filteredRecipes.find((el) => el._id === recipe._id);
-      dispatch(removeRecipe(selected));
-  }
+    const selected = filteredRecipes.find((el) => el._id === recipe._id);
+    dispatch(removeRecipe(selected));
+  };
 
   const viewRecipeDetails = (recipe) => {
-    setSelectedRecipe(recipe)
+    setSelectedRecipe(recipe);
     setShowRecipePanel(true);
   };
 
   const CloseAndDiscard = (e) => {
-    e.preventDefault()
-    setSelectedRecipe([])
+    e.preventDefault();
+    setSelectedRecipe([]);
     setShowRecipePanel(false);
-  }
+  };
 
   return (
     <div className="flex flex-col w-full h-full gap-4 p-8">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <img
-            width="100px"
-            src={`./images/logo.png`}
-            alt="restaurant-logo"
-          />
+          <img width="100px" src={`./images/logo.png`} alt="restaurant-logo" />
           <h1 className="tracking-wide uppercase cursor-default">
             {t('recipeList.title')}
           </h1>
@@ -50,7 +46,9 @@ function Dashboard() {
           src={`./images/nutriscore/nutriscore.svg`}
           alt="nutriscore logo"
         />
-        {showModal && <NutriScoreInfo showModal={showModal} onClose={setShowModal} />}
+        {showModal && (
+          <NutriScoreInfo showModal={showModal} onClose={setShowModal} />
+        )}
       </div>
 
       <div className="flex flex-col p-8 bg-white rounded-xl min-h-[500px] w-[500px] sm:w-full dark:text-gray-100 dark:bg-slate-800">
@@ -78,21 +76,23 @@ function Dashboard() {
         enter="transition-opacity duration-500 ease-in-out"
         enterFrom="opacity-0"
         enterTo="opacity-100"
-        leave="transition-opacity duration-200 ease-in-out"
+        leave="transition-opacity duration-500 ease-in-out"
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <div
-          className={`w-full lg:w-[500px]
-        fixed h-full top-0 right-0 z-50 
-        `}
-        >
-          {showRecipePanel &&
-          <CreateRecipe
-            recipe={selectedRecipe}
-            onCloseAndDiscard={CloseAndDiscard}
-          />
-          }
+        <div className="z-50">
+          <div className="fixed inset-0 bg-black bg-opacity-25" onClick={CloseAndDiscard}/>
+
+          <div
+            className={`w-full lg:w-[500px]
+              fixed h-full top-0 right-0 
+              `}
+          >
+            <CreateRecipe
+              recipe={selectedRecipe}
+              onCloseAndDiscard={CloseAndDiscard}
+            />
+          </div>
         </div>
       </Transition>
     </div>

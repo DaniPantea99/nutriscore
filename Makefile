@@ -11,3 +11,5 @@ run:
 
 stop:
 	docker-compose down
+	docker rmi api-server:latest
+	docker rmi react-app:latest
