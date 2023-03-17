@@ -5,19 +5,15 @@ const cors = require('cors');
 const app = express();
 const ingredientsRouter = require('./app/routes/ingredients.routes.js');
 const authRouter = require('./auth/routes/auth.js'); //For authentication
+const privateRouter = require('./auth/routes/private.js') //For authentication
+const errorHandler = require('./auth/middleware/error.js') //For authentication
 const connectDB = require('./auth/config/db.js') //For authentication - this should be temporary, just to test Auth without Docker
+
+require('./app/routes/recipe.routes')(app);
 
 var corsOptions = {
   origin: 'http://localhost:3000',
 };
-
-app.use(cors(corsOptions));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use('/api/ingredients', ingredientsRouter);
-//For authentication
-app.use('/api/auth', authRouter);
 
 //Connect Mongodb
 connectDB() //For authentication - this should be temporary, just to test Auth without Docker
@@ -38,11 +34,22 @@ connectDB() //For authentication - this should be temporary, just to test Auth w
 //     process.exit();
 //   });
 
+app.use(cors(corsOptions));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/api/ingredients', ingredientsRouter);
+//For authentication
+app.use('/api/auth', authRouter);
+app.use('/api/private', privateRouter);
+
+
+//Error handler (Should be last piece of middleware)
+app.use(errorHandler)
+
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to Nutriscore application.' });
 });
-
-require('./app/routes/recipe.routes')(app);
 
 const PORT = process.env.PORT || 5000;
 
