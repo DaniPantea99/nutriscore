@@ -30,7 +30,7 @@ function Navbar({ children }) {
   ];
 
   return (
-    <div className="flex grow dark:text-gray-100 dark:bg-slate-900 h-full">
+    <div className="flex h-full grow dark:text-gray-100 dark:bg-slate-900">
       <div
         className={`flex flex-col bg-white transition-all duration-300 w-20 dark:text-gray-100 dark:bg-slate-800 ${
           isOpen && 'w-56'
