@@ -1,7 +1,6 @@
 {
   "name": "nutriscore-app",
   "version": "0.1.0",
-  "proxy": "http://127.0.0.1:5000",
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.7.7",

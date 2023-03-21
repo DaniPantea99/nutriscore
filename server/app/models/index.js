@@ -6,6 +6,6 @@ const db = {}
 db.mongoose = mongoose
 db.url = dbConfig.url
 db.recipes = require("./recipe.model.js")(mongoose)
-db.auth = require("../../auth/models/User.js")(mongoose) //added while creating Auth
+db.auth = require("./User.model.js")(mongoose) //added while creating Auth
 
 module.exports = db

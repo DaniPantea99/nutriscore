@@ -4,35 +4,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const ingredientsRouter = require('./app/routes/ingredients.routes.js');
-const authRouter = require('./auth/routes/auth.js'); //For authentication
-const privateRouter = require('./auth/routes/private.js') //For authentication
-const errorHandler = require('./auth/middleware/error.js') //For authentication
-const connectDB = require('./auth/config/db.js') //For authentication - this should be temporary, just to test Auth without Docker
-
-require('./app/routes/recipe.routes')(app);
+const authRouter = require('./app/routes/auth.routes.js'); //For authentication
+const privateRouter = require('./app/routes/private.routes.js') //For authentication
+const errorHandler = require('./app/middleware/error.middleware.js') //For authentication
+// const connectDB = require('./app/config/auth.db.js') //For authentication - this should be temporary, just to test Auth without Docker
 
 var corsOptions = {
   origin: 'http://localhost:3000',
 };
-
-//Connect Mongodb
-connectDB() //For authentication - this should be temporary, just to test Auth without Docker
-
-// const db = require('./app/models');
-// db.mongoose
-//   .connect(db.url, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//     useCreateIndex: true, // newly added when creating Auth
-//     useFindAndModify: true, // newly added when creating Auth
-//   })
-//   .then(() => {
-//     console.log('Connected to database!');
-//   })
-//   .catch((err) => {
-//     console.log('Cannot connect to the database!', err);
-//     process.exit();
-//   });
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
@@ -40,16 +19,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/ingredients', ingredientsRouter);
 //For authentication
-app.use('/api/auth', authRouter);
+app.use('/api/users', authRouter);
 app.use('/api/private', privateRouter);
 
+//Connect Mongodb
+// connectDB() //For authentication - this should be temporary, just to test Auth without Docker
 
-//Error handler (Should be last piece of middleware)
-app.use(errorHandler)
+const db = require('./app/models');
+db.mongoose
+  .connect(db.url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true, // newly added when creating Auth
+    useFindAndModify: true, // newly added when creating Auth
+  })
+  .then(() => {
+    console.log('Connected to database!');
+  })
+  .catch((err) => {
+    console.log('Cannot connect to the database!', err);
+    process.exit();
+  });
 
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to Nutriscore application.' });
 });
+
+//Error handler (Should be last piece of middleware)
+app.use(errorHandler)
+require('./app/routes/recipe.routes')(app);
 
 const PORT = process.env.PORT || 5000;
 

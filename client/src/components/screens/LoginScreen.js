@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { UserURL } from '../../api';
 
 const LoginScreen = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -24,7 +25,8 @@ useEffect(() => {
 
     try {
       const { data } = await axios.post(
-        '/api/auth/login',
+        `${UserURL}/login`,
+        // '/api/auth/login',
         { email, password },
         config
       );
@@ -40,14 +42,15 @@ useEffect(() => {
   };
 
   return (
-    <div>
-      <form onSubmit={loginHandler}>
-        <h3>Login</h3>
+    <div className='p-4 sm:p-8'>
+      <form onSubmit={loginHandler} className='flex flex-col p-4 m-auto text-center bg-blue-200 rounded-2xl w-80'>
+        <h3 className='mb-8 text-2xl font-semibold'>Login</h3>
         {error && <span>{error}</span>}
         
-        <div>
-          <label htmlFor="email">Email:</label>
+        <div className='flex flex-col mb-6 text-left'>
+          <label htmlFor="email" className='mb-1 text-sm'>Email:</label>
           <input
+            className='px-2 py-1 rounded-md'
             type="email"
             required
             id="email"
@@ -57,11 +60,12 @@ useEffect(() => {
             tabIndex={1}
           />
         </div>
-        <div>
-          <label htmlFor="password">Password:
-            <Link to="/forgotpassword" tabIndex={4}>Forgot Password?</Link>
+        <div className='flex flex-col mb-6 text-left'>
+          <label htmlFor="password" className='mb-1 text-sm'>Password:{" "}
+            <Link to="/forgotpassword" tabIndex={4} className='text-xs text-blue-800 underline'>Forgot Password?</Link>
           </label>
           <input
+            className='px-2 py-1 rounded-md'
             type="password"
             required
             id="password"
@@ -72,9 +76,9 @@ useEffect(() => {
           />
         </div>
 
-        <button type="submit" tabIndex={3}>Login</button>
-        <span>
-          Don't have an account? <Link to="/register">Register</Link>
+        <button type="submit" tabIndex={3} className="px-4 py-2 mb-2 font-medium tracking-widest text-white bg-orange-500 rounded-2xl hover:brightness-110 active:brightness-95">Login</button>
+        <span className='text-xs text-left'>
+          Don't have an account? <Link to="/register" className='text-blue-800 underline'>Register</Link>
         </span>
       </form>
     </div>

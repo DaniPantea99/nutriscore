@@ -1,6 +1,9 @@
 import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, 
+  // useParams 
+} from 'react-router-dom';
 import axios from 'axios';
+import { UserURL } from '../../api';
 
 const ResetPasswordScreen = ({ match }) => {
   const [password, setPassword] = useState('');
@@ -8,7 +11,7 @@ const ResetPasswordScreen = ({ match }) => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const resetToken = useParams()
+  // const resetToken = useParams()
 
   const resetPasswordHandler = async (e) => {
     e.preventDefault();
@@ -29,8 +32,9 @@ const ResetPasswordScreen = ({ match }) => {
 
     try {
       const { data } = await axios.put(
+        `${UserURL}/resetpassword/${match.params.resetToken}`,
         // `/api/auth/resetpassword/${match.params.resetToken}`,
-        `/api/auth/resetpassword/${resetToken}`,
+        // `/api/auth/resetpassword/${resetToken}`,
         {
           password,
         },
@@ -47,18 +51,19 @@ const ResetPasswordScreen = ({ match }) => {
   };
 
   return (
-    <div>
-      <form onSubmit={resetPasswordHandler}>
-        <h3>Reset Password</h3>
+    <div className='p-4 sm:p-8'>
+      <form onSubmit={resetPasswordHandler} className='flex flex-col p-4 m-auto text-center bg-blue-200 rounded-2xl w-80'>
+        <h3 className='mb-8 text-2xl font-semibold'>Reset Password</h3>
         {error && <span>{error}</span>}
         {success && (
           <span>
             {success} <Link to="/login">Login</Link>
           </span>
         )}
-        <div>
-          <label htmlFor="password">New Password:</label>
+        <div className='flex flex-col mb-6 text-left'>
+          <label htmlFor="password" className='mb-1 text-sm'>New Password:</label>
           <input
+            className='px-2 py-1 rounded-md'
             type="password"
             required
             id="password"
@@ -68,9 +73,10 @@ const ResetPasswordScreen = ({ match }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div>
-          <label htmlFor="confirmpassword">Confirm New Password:</label>
+        <div className='flex flex-col mb-6 text-left'>
+          <label htmlFor="confirmpassword" className='mb-1 text-sm'>Confirm New Password:</label>
           <input
+            className='px-2 py-1 rounded-md'
             type="password"
             required
             id="confirmpassword"
@@ -80,7 +86,7 @@ const ResetPasswordScreen = ({ match }) => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
-        <button type="submit">Reset Password</button>
+        <button type="submit" className="px-4 py-2 mb-2 font-medium tracking-widest text-white bg-orange-500 rounded-2xl hover:brightness-110 active:brightness-95">Reset Password</button>
       </form>
     </div>
   );

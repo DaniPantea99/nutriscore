@@ -13,7 +13,7 @@ import PdfDocument from './pages/PdfDocument';
 import PrivateRoute from './components/routing/PrivateRoute';
 
 //Screens
-import PrivateScreen from './components/screens/PrivateScreen';
+// import PrivateScreen from './components/screens/PrivateScreen';
 import LoginScreen from './components/screens/LoginScreen';
 import RegisterScreen from './components/screens/RegisterScreen';
 import ForgotPasswordScreen from './components/screens/ForgotPasswordScreen';
@@ -46,7 +46,7 @@ function App() {
               element={<ForgotPasswordScreen />}
             />
             <Route
-              path="/passwordreset/:resetToken"
+              path="/resetpassword/:resetToken"
               exact
               element={<ResetPasswordScreen />}
             />
