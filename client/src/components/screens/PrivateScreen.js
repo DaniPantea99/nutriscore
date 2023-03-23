@@ -21,8 +21,8 @@ const PrivateScreen = ({ history }) => {
 
       try {
         const { data } = await axios.get(
-          `${UserURL}/private`,
-          // '/api/private', 
+          // `${UserURL}/private`,
+          '/api/private', 
           config);
         setPrivateData(data.data);
       } catch (error) {

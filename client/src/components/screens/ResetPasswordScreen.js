@@ -32,9 +32,9 @@ const ResetPasswordScreen = ({ match }) => {
 
     try {
       const { data } = await axios.put(
-        `${UserURL}/resetpassword/${match.params.resetToken}`,
-        // `/api/auth/resetpassword/${match.params.resetToken}`,
-        // `/api/auth/resetpassword/${resetToken}`,
+        // `${UserURL}/passwordreset/${match.params.resetToken}`,
+        `/api/auth/passwordreset/${match.params.resetToken}`,
+        // `/api/auth/passwordreset/${resetToken}`,
         {
           password,
         },

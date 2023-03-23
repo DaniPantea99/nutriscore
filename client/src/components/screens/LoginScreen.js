@@ -18,15 +18,15 @@ useEffect(() => {
     e.preventDefault();
 
     const config = {
-      header: {
+      headers: {
         'Content-Type': 'application/json',
       },
     };
 
     try {
       const { data } = await axios.post(
-        `${UserURL}/login`,
-        // '/api/auth/login',
+        // `${UserURL}/login`,
+        '/api/auth/login',
         { email, password },
         config
       );

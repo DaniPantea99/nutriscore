@@ -1,9 +1,9 @@
 const crypto = require('crypto');
-// const User = require('../models/User.model');
+const User = require('../models/User.model');
 const ErrorResponse = require('../utils/errorResponse');
 const sendEmail = require('../utils/sendEmail');
-const db = require('../models');
-const User = db.auth;
+// const db = require('../models');
+// const User = db.auth;
 
 exports.register = async (req, res, next) => {
   // res.send("Register Route")
@@ -81,7 +81,7 @@ exports.login = async (req, res, next) => {
   }
 };
 
-exports.forgotpassword = async (req, res, next) => {
+exports.forgotPassword = async (req, res, next) => {
   // res.send('Forgot Password Route');
 
   const { email } = req.body;
@@ -97,7 +97,7 @@ exports.forgotpassword = async (req, res, next) => {
 
     await user.save();
 
-    const resetUrl = `http://localhost:3000/resetpassword/${resetToken}`;
+    const resetUrl = `http://localhost:3000/passwordreset/${resetToken}`;
 
     const message = `
       <h1>You have requested a password reset</h1>
@@ -126,7 +126,7 @@ exports.forgotpassword = async (req, res, next) => {
   }
 };
 
-exports.resetpassword = async (req, res, next) => {
+exports.resetPassword = async (req, res, next) => {
   // res.send('Reset Password Route');
   const resetPasswordToken = crypto
     .createHash('sha256')
@@ -135,6 +135,7 @@ exports.resetpassword = async (req, res, next) => {
 
   try {
     const user = await User.findOne({
+      resetPasswordToken,
       //in mongoDB we can use -->> $gt (greater than)
       resetPasswordExpire: { $gt: Date.now() },
     });
@@ -151,7 +152,8 @@ exports.resetpassword = async (req, res, next) => {
 
     res.status(201).json({
       success: true,
-      data: "Password Reset Success"
+      data: "Password Reset Success",
+      token: user.getSignedToken(),
     })
   } catch (error) {
     next(error)

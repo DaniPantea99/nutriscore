@@ -46,7 +46,7 @@ function App() {
               element={<ForgotPasswordScreen />}
             />
             <Route
-              path="/resetpassword/:resetToken"
+              path="/passwordreset/:resetToken"
               exact
               element={<ResetPasswordScreen />}
             />
