@@ -3,8 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const ingredientsRouter = require('./app/routes/ingredients.routes.js');
-const authRouter = require('./app/routes/auth.routes.js'); //For authentication
 const privateRouter = require('./app/routes/private.routes.js') //For authentication
+const authRouter = require('./app/routes/auth.routes.js'); //For authentication
 const errorHandler = require('./app/middleware/error.middleware.js') //For authentication
 const connectDB = require('./app/config/auth.db.js') //For authentication - this should be temporary, just to test Auth without Docker
 

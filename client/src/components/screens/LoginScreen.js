@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { UserURL } from '../../api';
 
 const LoginScreen = ({ history }) => {
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [error, setError] = useState('');
 
 useEffect(() => {
